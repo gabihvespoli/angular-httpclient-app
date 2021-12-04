@@ -22,12 +22,14 @@ export class RestApiService {
   getEmployees(): Observable<Employee> {
     return this.http
       .get<Employee>(`${this.apiURL}/employees`)
+      .pipe(tap(console.log))
       .pipe(retry(1), catchError(this.handleError));
   }
 
   getEmployee(id: any): Observable<Employee> {
     return this.http
       .get<Employee>(this.apiURL + '/employees/' + id)
+      .pipe(tap(console.log))
       .pipe(retry(1), catchError(this.handleError));
   }
 
@@ -48,12 +50,14 @@ export class RestApiService {
         JSON.stringify(employee),
         this.httpOptions
       )
+      .pipe(tap(console.log))
       .pipe(retry(1), catchError(this.handleError));
   }
 
   deleteEmployee(id: any) {
     return this.http
       .delete<Employee>(`${this.apiURL}/employees/${id}`, this.httpOptions)
+      .pipe(tap(console.log))
       .pipe(retry(1), catchError(this.handleError));
   }
 
